@@ -8,10 +8,11 @@ connectToDataBase();
 
 // inicializando o express (esse "app" basicamente  possui tudo o que o servidor pode fazer)
 const app = express();
+const port = 8000;
 
 app.get("/", (req, res) => {
     res.status(200).send("Hello World");
 })
 
-app.listen(8000, () => console.log("Listening on port 8000"));
-
+// Servidor local
+app.listen(port, () => console.log(`Listening on port: localhost:${port}`))
