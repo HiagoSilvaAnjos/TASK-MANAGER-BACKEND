@@ -1,10 +1,9 @@
 // CRIANDO O MODEL
-import { Schema, Model } from 'mongoose';
+const { Schema, model } = require('mongoose');
 
 const TaskSchema = Schema({
     description: {
         type: String,
-        // seta se o campo é obrigatório => requered
         required: true,
     },
     isCompleted: {
@@ -14,6 +13,6 @@ const TaskSchema = Schema({
 })
 
 // Criando o Model
-const TaskModel = Model("Task", TaskSchema);
+const TaskModel = model("Task", TaskSchema);
 
-export default TaskModel;
+module.exports = TaskModel;

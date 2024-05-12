@@ -1,17 +1,39 @@
 const express = require('express');
 const dotenv = require('dotenv');
 
-const connectToDataBase = require('./src/database/mongoose.database')
+const connectToDataBase = require('./src/database/mongoose.database');
+const TaskModel = require('./src/models/task.model');
+
+// inicializando o express (esse "app" basicamente  possui tudo o que o servidor pode fazer)
 dotenv.config();
+const app = express();
+
+// Falando para o express que vamos receber JSON na body das requisições
+app.use(express.json());
+
+const port = 8000;
 
 connectToDataBase();
 
-// inicializando o express (esse "app" basicamente  possui tudo o que o servidor pode fazer)
-const app = express();
-const port = 8000;
+app.get("/tasks", async (req, res) => {
+    try {
+        const task = await TaskModel.find({});
+        res.status(200).send(task)
+    } catch (error) {
+        res.status(500).send(error.message);
+    };
+})
 
-app.get("/", (req, res) => {
-    res.status(200).send("Hello World");
+app.post('/tasks', async (req, res) => {
+    try {
+        const newTask = TaskModel(req.body);
+
+        await newTask.save();
+
+        res.status(201).send(newTask);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
 })
 
 // Servidor local
