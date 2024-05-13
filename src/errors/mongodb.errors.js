@@ -4,4 +4,10 @@ const notFoundError = (res) => {
         .send("Este dado não foi encontrado no banco de dados.");
 };
 
-module.exports = { notFoundError };
+const objectIdCastError = (res) => {
+    return res
+        .status(500)
+        .send("Ocorreu um erro ao recuperar este dado do banco de dados.");
+};
+
+module.exports = { notFoundError, objectIdCastError };
