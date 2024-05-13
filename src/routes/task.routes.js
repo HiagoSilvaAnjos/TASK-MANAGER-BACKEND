@@ -1,16 +1,13 @@
 const express = require('express');
+
+const TaskController = require('../controllers/task.controler');
 const TaskModel = require('../models/task.model');
 
 const router = express.Router();
 
 // Lendo as Tarefas
 router.get("/", async (req, res) => {
-    try {
-        const task = await TaskModel.find({});
-        res.status(200).send(task);
-    } catch (error) {
-        res.status(500).send(error.message);
-    };
+    return new TaskController(req, res).getTask();
 })
 
 // Lendo as informações da Tarefa 
