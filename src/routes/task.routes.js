@@ -12,18 +12,7 @@ router.get("/", async (req, res) => {
 
 // Lendo as informações da Tarefa 
 router.get("/:id", async (req, res) => {
-    try {
-        const taskId = req.params.id;
-        const task = await TaskModel.findById(taskId);
-
-        if (!task) {
-            res.status(404).send("Essa tarefa não foi encotrada");
-        }
-
-        res.status(200).send(task);
-    } catch (error) {
-        res.status(500).send(error.message);
-    };
+    return new TaskController(req, res).getTaskById();
 })
 
 // Criando as Tarefas
