@@ -7,53 +7,22 @@ const router = express.Router();
 
 // Lendo as Tarefas
 router.get("/", async (req, res) => {
-    return new TaskController(req, res).getTask();
+    return new TaskController(req, res).getAll();
 })
 
 // Lendo as informações da Tarefa 
 router.get("/:id", async (req, res) => {
-    return new TaskController(req, res).getTaskById();
+    return new TaskController(req, res).getById();
 })
 
 // Criando as Tarefas
 router.post('/', async (req, res) => {
-    try {
-        // Adicionando a Tarefa
-        const newTask = TaskModel(req.body);
-
-        // Salvando a Tarefa
-        await newTask.save();
-
-        res.status(201).send(newTask);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
+    return new TaskController(req, res).create();
 })
 
 // Atualizando uma Tarefa
 router.patch('/:id', async (req, res) => {
-    try {
-        const taskId = req.params.id;
-        const taskData = req.body;
-
-        const taskToUpdate = await TaskModel.findById(taskId);
-
-        const allowedUpdates = ["isCompleted"];
-        const requestUpdates = Object.keys(taskData)
-
-        for (let update of requestUpdates) {
-            if (allowedUpdates.includes(update)) {
-                taskToUpdate[update] = taskData[update];
-            } else {
-                return res.status(500).send("Um ou mais campos inseridos não são editaveis.")
-            }
-        }
-
-        await taskToUpdate.save();
-        return res.status(200).send(taskToUpdate);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
+    return new TaskController(req, res).patch();
 })
 
 // Deletando uma tarefa
