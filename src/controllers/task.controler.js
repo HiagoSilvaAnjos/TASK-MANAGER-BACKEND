@@ -44,7 +44,7 @@ class TaskController {
         }
     }
 
-    async patch() {
+    async update() {
         try {
             const taskId = this.req.params.id;
             const taskData = this.req.body;

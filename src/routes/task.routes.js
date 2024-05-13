@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
 
 // Atualizando uma Tarefa
 router.patch('/:id', async (req, res) => {
-    return new TaskController(req, res).patch();
+    return new TaskController(req, res).update();
 })
 
 // Deletando uma tarefa
